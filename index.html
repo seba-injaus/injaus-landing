@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injaus | AI Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        body {
+            background-color: #050505;
+            font-family: 'Space Mono', 'Courier New', Courier, monospace;
+        }
+        
+        .glow {
+            text-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .bot-pulse {
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(79, 70, 229, 0.3)); }
+            50% { filter: drop-shadow(0 0 25px rgba(79, 70, 229, 0.6)); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen overflow-hidden">
+
+    <div class="text-center">
+        <div class="mb-8 flex justify-center">
+            <div class="relative">
+                <div class="absolute inset-0 rounded-full blur-2xl bg-indigo-600/20"></div>
+                
+                <svg class="w-32 h-32 text-white bot-pulse relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 8V4H8"></path>
+                    <rect width="16" height="12" x="4" y="8" rx="2"></rect>
+                    <path d="M2 14h2"></path>
+                    <path d="M20 14h2"></path>
+                    <path d="M15 13v2"></path>
+                    <path d="M9 13v2"></path>
+                </svg>
+            </div>
+        </div>
+
+        <h1 class="text-white text-4xl font-bold tracking-[0.2em] uppercase glow mb-4">
+            Injaus<span class="text-indigo-500">.AI</span>
+        </h1>
+
+        <p class="text-zinc-500 text-xl font-light tracking-widest italic">
+            {Soon}
+        </p>
+    </div>
+
+    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-600/30 to-transparent"></div>
+
+</body>
+</html>
