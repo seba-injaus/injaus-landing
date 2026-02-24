@@ -6,55 +6,71 @@
     <title>Injaus | AI Agent</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
         
         body {
             background-color: #050505;
-            font-family: 'Space Mono', 'Courier New', Courier, monospace;
+            font-family: 'Space Mono', monospace;
         }
-        
+
+        /* Efecto de flotación (levitación) */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .bot-container {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Movimiento de ojos */
+        @keyframes lookAround {
+            0%, 10%, 90%, 100% { transform: translateX(0); }
+            20%, 40% { transform: translateX(3px); }
+            60%, 80% { transform: translateX(-3px); }
+        }
+        .eye-ball {
+            animation: lookAround 6s infinite ease-in-out;
+        }
+
         .glow {
-            text-shadow: 0 0 20px rgba(79, 70, 229, 0.4);
-        }
-
-        .bot-pulse {
-            animation: pulse-glow 3s infinite ease-in-out;
-        }
-
-        @keyframes pulse-glow {
-            0%, 100% { filter: drop-shadow(0 0 10px rgba(79, 70, 229, 0.3)); }
-            50% { filter: drop-shadow(0 0 25px rgba(79, 70, 229, 0.6)); }
+            text-shadow: 0 0 20px rgba(79, 70, 229, 0.5);
         }
     </style>
 </head>
 <body class="flex items-center justify-center h-screen overflow-hidden">
 
     <div class="text-center">
-        <div class="mb-8 flex justify-center">
-            <div class="relative">
-                <div class="absolute inset-0 rounded-full blur-2xl bg-indigo-600/20"></div>
+        <div class="mb-10 flex justify-center">
+            <div class="bot-container relative">
+                <div class="absolute inset-0 rounded-full blur-3xl bg-indigo-600/20 scale-150"></div>
                 
-                <svg class="w-32 h-32 text-white bot-pulse relative z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 8V4H8"></path>
-                    <rect width="16" height="12" x="4" y="8" rx="2"></rect>
-                    <path d="M2 14h2"></path>
-                    <path d="M20 14h2"></path>
-                    <path d="M15 13v2"></path>
-                    <path d="M9 13v2"></path>
+                <svg width="140" height="140" viewBox="0 0 24 24" fill="none" class="relative z-10 text-white">
+                    <rect x="3" y="6" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.5" />
+                    <path d="M12 6V2M12 2H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    
+                    <g class="eye-container">
+                        <circle cx="8.5" cy="12.5" r="1.5" fill="currentColor" class="eye-ball" />
+                        <circle cx="15.5" cy="12.5" r="1.5" fill="currentColor" class="eye-ball" />
+                    </g>
+                    
+                    <path d="M9 16.5h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
                 </svg>
             </div>
         </div>
 
-        <h1 class="text-white text-4xl font-bold tracking-[0.2em] uppercase glow mb-4">
-            Injaus<span class="text-indigo-500"> AI</span>
+        <h1 class="text-white text-5xl font-bold tracking-[0.25em] uppercase glow mb-6">
+            Injaus<span class="text-indigo-500">.AI</span>
         </h1>
 
-        <p class="text-zinc-500 text-xl font-light tracking-widest italic">
-            {Soon}
-        </p>
+        <div class="flex items-center justify-center space-x-2">
+            <div class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></div>
+            <p class="text-zinc-500 text-lg font-light tracking-[0.3em] uppercase">
+                {Soon}
+            </p>
+        </div>
     </div>
 
-    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-600/30 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-900/50 to-transparent"></div>
 
 </body>
 </html>
