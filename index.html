@@ -22,41 +22,49 @@
             background-size: 24px 24px;
         }
 
-        /* Animación de flotación */
-        @keyframes float {
-            0%, 100% { transform: translateY(-5px); }
-            50% { transform: translateY(5px); }
-        }
-        .bot-float {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        /* Resplandor de fondo */
+        /* Resplandor de fondo perfectamente centrado */
         .glow-sphere {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 80vw;
             height: 80vw;
-            max-width: 400px;
-            max-height: 400px;
-            background: rgba(34, 211, 238, 0.15); /* Cyan por defecto */
+            max-width: 450px;
+            max-height: 450px;
+            background: rgba(34, 211, 238, 0.12);
             border-radius: 50%;
             filter: blur(100px);
             z-index: -1;
-            animation: pulse-glow 4s infinite;
+            animation: pulse-glow 4s infinite ease-in-out;
         }
 
         @keyframes pulse-glow {
-            0%, 100% { opacity: 0.6; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1.05); }
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        /* Animación de flotación vertical pura */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        .bot-float-container {
+            animation: float 4s ease-in-out infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
 
         .bot-svg {
-            transition: transform 0.1s ease-out;
-            filter: drop-shadow(0 0 15px rgba(34, 211, 238, 0.6));
+            transition: transform 0.15s ease-out;
+            filter: drop-shadow(0 0 20px rgba(34, 211, 238, 0.4));
+            transform-origin: center center;
         }
 
         .text-glow {
-            text-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+            text-shadow: 0 0 25px rgba(34, 211, 238, 0.5);
         }
     </style>
 </head>
@@ -64,9 +72,9 @@
 
     <div class="glow-sphere"></div>
 
-    <div class="text-center relative z-10">
-        <div class="mb-10 bot-float" id="bot-container">
-            <svg id="mascot-svg" width="240" height="240" viewBox="0 0 200 200" class="text-cyan-400 bot-svg">
+    <div class="text-center relative z-10 w-full">
+        <div class="mb-10 bot-float-container">
+            <svg id="mascot-svg" width="260" height="260" viewBox="0 0 200 200" class="text-cyan-400 bot-svg">
                 <line x1="100" y1="45" x2="100" y2="20" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
                 <circle id="antenna-light" cx="100" cy="15" r="5" fill="currentColor" class="animate-pulse"/>
                 
@@ -75,7 +83,7 @@
                 
                 <path d="M 35 45 H 165 A 25 25 0 0 1 190 70 V 110 A 25 25 0 0 1 165 135 H 35 A 25 25 0 0 1 10 110 V 70 A 25 25 0 0 1 35 45 Z" fill="#030305" stroke="currentColor" stroke-width="5" />
                 
-                <rect x="35" y="60" width="130" height="60" rx="15" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3" />
+                <rect x="35" y="60" width="130" height="60" rx="15" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2" />
                 
                 <path d="M 60 145 L 60 155 Q 60 190 100 190 Q 140 190 140 155 L 140 145 Z" fill="#030305" stroke="currentColor" stroke-width="5" />
                 
@@ -85,21 +93,21 @@
                     <circle cx="100" cy="175" r="2.5" />
                 </g>
 
-                <g id="eyes-group" transform="translate(0, 5)">
-                    <ellipse id="left-eye" cx="70" cy="80" rx="7" ry="9" fill="currentColor" />
-                    <ellipse id="right-eye" cx="130" cy="80" rx="7" ry="9" fill="currentColor" />
-                    <path d="M 85 105 Q 100 120 115 105" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+                <g id="eyes-group">
+                    <ellipse id="left-eye" cx="70" cy="85" rx="7" ry="9" fill="currentColor" />
+                    <ellipse id="right-eye" cx="130" cy="85" rx="7" ry="9" fill="currentColor" />
+                    <path d="M 85 110 Q 100 125 115 110" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
                 </g>
             </svg>
         </div>
 
-        <h1 class="text-white text-5xl font-bold tracking-[0.25em] uppercase text-glow mb-6">
-            Injaus<span class="text-cyan-500"> AI</span>
+        <h1 class="text-white text-6xl font-bold tracking-[0.25em] uppercase text-glow mb-8">
+            Injaus<span class="text-cyan-500">.AI</span>
         </h1>
 
-        <div class="flex items-center justify-center space-x-3">
-            <div class="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></div>
-            <p class="text-zinc-500 text-lg font-light tracking-[0.4em] uppercase">
+        <div class="flex items-center justify-center space-x-4">
+            <div class="w-2.5 h-2.5 bg-cyan-500 rounded-full animate-ping"></div>
+            <p class="text-zinc-500 text-xl font-light tracking-[0.5em] uppercase">
                 {Soon}
             </p>
         </div>
@@ -108,24 +116,27 @@
     <script>
         const svg = document.getElementById('mascot-svg');
         const eyesGroup = document.getElementById('eyes-group');
-        const antenna = document.getElementById('antenna-light');
 
-        // Interactividad de ojos y cabeza (Parallax)
         document.addEventListener('mousemove', (e) => {
+            // Calculamos la posición relativa al centro de la ventana
             const x = (e.clientX / window.innerWidth) - 0.5;
             const y = (e.clientY / window.innerHeight) - 0.5;
 
-            // Mover cabeza ligeramente
-            svg.style.transform = `translate(${x * 15}px, ${y * 15}px)`;
+            // Movimiento suave de la cabeza (rotación sutil + traslación)
+            // Esto evita que parezca inclinado permanentemente
+            svg.style.transform = `rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translate(${x * 10}px, ${y * 10}px)`;
             
-            // Mover ojos dentro de la cabeza
-            eyesGroup.style.transform = `translate(${x * 25}px, ${y * 20}px)`;
+            // Movimiento de los ojos (Parallax interno)
+            eyesGroup.style.transform = `translate(${x * 20}px, ${y * 15}px)`;
         });
 
-        // Simulación de parpadeo aleatorio
-        setInterval(() => {
+        // Función de parpadeo realista
+        function blink() {
             const leftEye = document.getElementById('left-eye');
             const rightEye = document.getElementById('right-eye');
+            
+            leftEye.style.transition = 'ry 0.1s';
+            rightEye.style.transition = 'ry 0.1s';
             
             leftEye.setAttribute('ry', '0.5');
             rightEye.setAttribute('ry', '0.5');
@@ -134,7 +145,13 @@
                 leftEye.setAttribute('ry', '9');
                 rightEye.setAttribute('ry', '9');
             }, 150);
-        }, Math.random() * 3000 + 2000);
+
+            // Programar el siguiente parpadeo aleatoriamente entre 2 y 6 segundos
+            setTimeout(blink, Math.random() * 4000 + 2000);
+        }
+        
+        // Iniciar el bucle de parpadeo
+        setTimeout(blink, 2000);
     </script>
 </body>
 </html>
